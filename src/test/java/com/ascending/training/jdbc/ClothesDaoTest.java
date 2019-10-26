@@ -1,4 +1,4 @@
 package com.ascending.training.jdbc;
 
-public class BottomDao {
+public class ClothesDaoTest {
 }

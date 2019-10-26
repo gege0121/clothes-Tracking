@@ -1,4 +1,4 @@
 package com.ascending.training.model;
 
-public class Customer {
+public class History {
 }

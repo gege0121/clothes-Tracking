@@ -1,4 +1,4 @@
 package com.ascending.training.jdbc;
 
-public class WeatherDao {
+public class HistoryDaoTest {
 }
