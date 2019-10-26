@@ -23,7 +23,7 @@ CREATE TABLE customer (
 -- ALTER TABLE customer ADD CONSTRAINT customer_pk PRIMARY KEY ( id );
 
 CREATE TABLE history (
-    id SERIAL  NOT NULL PRIMARY KEY,
+    id          SERIAL  NOT NULL PRIMARY KEY,
     cus_id       INTEGER,
     date     DATE NOT NULL DEFAULT CURRENT_DATE,
     temperature      VARCHAR(150),
