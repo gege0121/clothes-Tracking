@@ -1,26 +1,45 @@
 package com.ascending.training.model;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "customers")
 public class Customer {
 
     public Customer(){
     }
 
-    public Customer(String nameç, Integer age, String sex, Integer height, Integer weight, Integer primer){
+    public Customer(String name, Integer age, Integer gender, Integer height, Integer weight, Integer primer){
         this.name=name;
         this.age=age;
-        this.sex=sex;
+        this.gender=gender;
         this.height=height;
         this.weight=weight;
         this.primer=primer;
     }
-
-    private String name;
-    private Integer age;
-    private String sex;
-    private Integer height;
-    private Integer weight;
-    private Integer primer;
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
+
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "age")
+    private Integer age;
+
+    @Column(name = "gender")
+    private Integer gender;
+
+    @Column(name = "height")
+    private Integer height;
+
+    @Column(name = "weight")
+    private Integer weight;
+
+    @Column(name = "primer")
+    private Integer primer;
+
 
     public String getName(){
         return name;
@@ -36,11 +55,11 @@ public class Customer {
         this.age=age;
     }
 
-    public String getSex(){
-        return sex;
+    public Integer getGender(){
+        return gender;
     }
-    public void setSex(String sex){
-        this.sex=sex;
+    public void setGender(Integer gender){
+        this.gender=gender;
     }
 
     public Integer getHeight(){
@@ -68,7 +87,7 @@ public class Customer {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+//    public void setId(int id) {
+//        this.id = id;
+//    }
 }

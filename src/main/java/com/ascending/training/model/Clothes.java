@@ -1,10 +1,9 @@
 package com.ascending.training.model;
 
+import javax.persistence.*;
 
-import net.bytebuddy.implementation.InvokeDynamic;
-
-//@Entity
-//@Table(name = "clothes")
+@Entity
+@Table(name = "clothes")
 public class Clothes {
 
     public Clothes() {
@@ -17,24 +16,30 @@ public class Clothes {
         this.tag = tag;
 
     }
-
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
 
+    @Column(name = "type")
     private String type;
 
+    @Column(name = "color")
     private String color;
 
+    @Column(name = "size")
     private String size;
 
+    @Column(name = "tag")
     private String tag;
 
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+//    public void setId(int id) {
+//        this.id = id;
+//    }
 
     public String getType() {
         return type;

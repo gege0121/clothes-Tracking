@@ -1,7 +1,9 @@
 package com.ascending.training.model;
 
+import javax.persistence.*;
 import java.util.Date;
-
+@Entity
+@Table(name = "history")
 public class History {
     public History(){
     }
@@ -9,9 +11,19 @@ public class History {
         this.date=date;
         this.temperature=temperature;
     }
-    private Date date;
-    private Integer temperature;
+    @Id
+    //@SequenceGenerator(name = "department_id_generator", sequenceName = "department_id_seq", allocationSize = 1)
+    //@GeneratedValue(strategy = SEQUENCE, generator = "department_id_generator")
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
+
+    @Column(name = "date")
+    private Date date;
+    @Column(name = "temperature")
+    private Integer temperature;
+
+
 
     public Date getDate(){
         return date;
@@ -30,9 +42,9 @@ public class History {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+//    public void setId(int id) {
+//        this.id = id;
+//    }
 
 
 }
