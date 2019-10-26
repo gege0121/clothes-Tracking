@@ -39,7 +39,7 @@ public class CustomerDao {
                     int id = rs.getInt("id");
                     String name = rs.getString("name");
                     Integer age = rs.getInt("age");
-                    String sex = rs.getString("sex");
+                    Integer gender = rs.getInt("gender");
                     Integer height = rs.getInt("height");
                     Integer weight = rs.getInt("weight");
                     Integer primer= rs.getInt("primer");
@@ -48,7 +48,7 @@ public class CustomerDao {
                    Customer  customer = new Customer();
                     customer.setId(id);
                     customer.setAge(age);
-                    customer.setSex(sex);
+                    customer.setGender(gender);
                     customer.setHeight(height);
                     customer.setWeight(weight);
                     customer.setName(name);
