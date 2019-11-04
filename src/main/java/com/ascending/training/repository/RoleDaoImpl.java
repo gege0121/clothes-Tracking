@@ -1,8 +1,9 @@
 package com.ascending.training.repository;
 
 import com.ascending.training.model.Role;
+import org.springframework.stereotype.Repository;
 
-
+@Repository
 public class RoleDaoImpl implements RoleDao{
     @Override
     public boolean save(Role role) {

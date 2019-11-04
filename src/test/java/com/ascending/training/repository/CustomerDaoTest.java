@@ -33,15 +33,18 @@ public class CustomerDaoTest {
         Role user = roleDao.findByName("user");
         roles.add(manager);
         roles.add(user);
-
     }
+
+//    @Test
+//    public void getCustomerWithRoleTest(){
+//        Customer customer= new Customer();
+//        List<Role> roles = new ArrayList<>();
+//        customer.setRoles(roles);
+//        customerDao.save(customer);
+//        List<Customer> customers = customerDao.getCustomers();
+//    }
+
 
     @Test
-    public void getCustomerWithRoleTest(){
-        Customer customer= new Customer();
-        List<Role> roles = new ArrayList<>();
-        customer.setRoles(roles);
-        customerDao.save(customer);
-        List<Customer> customers = customerDao.getCustomers();
-    }
+    public void 
 }

@@ -2,14 +2,18 @@ package com.ascending.training.repository;
 
 import com.ascending.training.model.Customer;
 import com.ascending.training.util.HibernateUtil;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+@Repository
 public class CustomerDaoImpl  implements CustomerDao {
 
     private Logger logger= LoggerFactory.getLogger(getClass());
@@ -97,6 +101,26 @@ public class CustomerDaoImpl  implements CustomerDao {
 
         return deletedCount >= 1 ? true : false;
     }
+//
+//    public List<Customer> getCustomersWithClothes() {
+//        String hql = "FROM Customer as c left join fetch c.clothes as clo";
+//        //String hql = "FROM Department as dept left join fetch dept.employees";
+//        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+//            Query<Customer> query = session.createQuery(hql);
+//            //return query.list();
+//            //return query.list().stream().distinct().collect(Collectors.toList());
+////            return query.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+//            return query.list();
+//        }
+//    }
+    public List<Customer> getAllCustomersWithClothes(){
+        String hql = "FROM Customer as c left join fetch c.clothes as clo";
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Query<Customer> query = session.createQuery(hql);
+            return query.list();
+        }
+    }
+
 
 
 

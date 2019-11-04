@@ -1,15 +1,19 @@
 package com.ascending.training.repository;
 
 import com.ascending.training.model.Clothes;
+import com.ascending.training.model.Customer;
 import com.ascending.training.util.HibernateUtil;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.stream.Collectors;
+@Repository
 
 public class ClothesDaoImpl implements ClothesDao {
 
@@ -132,19 +136,11 @@ public class ClothesDaoImpl implements ClothesDao {
 
         return deletedCount >= 1 ? true : false;
     }
-//        public Clothes getClothesByType(String clothesType) {
-//            if (clothesType == null) return null;
-//            String hql = "FROM Department as dept left join fetch dept.employees as em left join " +
-//                    "fetch em.accounts where lower(dept.name) = :name";
-//            //String hql = "FROM Department as dept where lower(dept.name) = :name";
-//
-//            try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-//                Query<Department> query = session.createQuery(hql);
-//                query.setParameter("name", deptName.toLowerCase());
-//
-//                return query.uniqueResult();
-//            }
-//        }
+
+
+
+
+
     }
 
 
