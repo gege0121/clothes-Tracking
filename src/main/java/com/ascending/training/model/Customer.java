@@ -1,6 +1,7 @@
 package com.ascending.training.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "customers")
@@ -40,6 +41,13 @@ public class Customer {
     @Column(name = "primer")
     private Integer primer;
 
+    @OneToMany(mappedBy = "customer", cascade =CascadeType.REMOVE, fetch=FetchType.LAZY)
+    private List<Clothes> clothes;
+
+    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @JoinTable(name = "users_role",joinColumns = { @JoinColumn(name = "user_id") },
+            inverseJoinColumns = { @JoinColumn(name = "role_id")})
+    private List<Role> roles;
 
     public String getName(){
         return name;
@@ -87,7 +95,15 @@ public class Customer {
         return id;
     }
 
-//    public void setId(int id) {
-//        this.id = id;
-//    }
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
 }

@@ -1,6 +1,6 @@
 package com.ascending.training.repository;
 
-import com.ascending.training.model.Clothes;
+import com.ascending.training.model.Customer;
 import com.ascending.training.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -10,18 +10,17 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.stream.Collectors;
+public class CustomerDaoImpl  implements CustomerDao {
 
-public class ClothesDaoImpl implements ClothesDao {
+    private Logger logger= LoggerFactory.getLogger(getClass());
 
-    private Logger logger= LoggerFactory.getLogger(this.getClass());
-
-    public boolean save(Clothes clothes) {
+    public boolean save(Customer customer) {
         Transaction transaction = null;
         boolean isSuccess = true;
 
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            session.save(clothes);
+            session.save(customer);
             transaction.commit();
         } catch (Exception e) {
             isSuccess = false;
@@ -29,18 +28,18 @@ public class ClothesDaoImpl implements ClothesDao {
             logger.error(e.getMessage());
         }
 
-        if (isSuccess) logger.debug(String.format("The clothes %s was inserted into the table.", clothes.toString()));
+        if (isSuccess) logger.debug(String.format("The customer %s was inserted into the table.", customer.toString()));
 
         return isSuccess;
     }
 
-    public boolean update(Clothes clothes) {
+    public boolean update(Customer customer) {
         Transaction transaction = null;
         boolean isSuccess = true;
 
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            session.saveOrUpdate(clothes);
+            session.saveOrUpdate(customer);
             transaction.commit();
         }
         catch (Exception e) {
@@ -49,30 +48,40 @@ public class ClothesDaoImpl implements ClothesDao {
             logger.error(e.getMessage());
         }
 
-        if (isSuccess) logger.debug(String.format("The clothes %s was updated.", clothes.toString()));
+        if (isSuccess) logger.debug(String.format("The customer %s was updated.", customer.toString()));
 
         return isSuccess;
     }
 
-    public List<Clothes> getClothessAll() {
+    public List<Customer> getCustomers() {
 
-       String hql = "FROM Clothes";
+        String hql = "FROM Customer";
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            Query<Clothes> query = session.createQuery(hql);
+            Query<Customer> query = session.createQuery(hql);
             return query.list().stream().distinct().collect(Collectors.toList());
 
         }
     }
 
+    public Customer getCustomersById(int id) {
+        String hql = "FROM Customer where id = :id";
 
-    public boolean deleteByType(String clothesType) {
-        String hql = "DELETE Clothes where type = :ct";
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Query<Customer> query = session.createQuery(hql);
+            query.setParameter("id", id);
+
+            return query.uniqueResult();
+        }
+    }
+
+    public boolean delete(String customerName) {
+        String hql = "DELETE Customer where name = :name";
         int deletedCount = 0;
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            Query<Clothes> query = session.createQuery(hql);
-            query.setParameter("ct", clothesType);
+            Query<Customer> query = session.createQuery(hql);
+            query.setParameter("name", customerName);
             deletedCount = query.executeUpdate();
 //        Clothes clo = getClothesByType(clothesType);
 //            session.delete(clo);
@@ -84,54 +93,13 @@ public class ClothesDaoImpl implements ClothesDao {
             logger.error(e.getMessage());
         }
 
-        logger.debug(String.format("The clothes %s was deleted", clothesType));
+        logger.debug(String.format("The customer %s was deleted", customerName));
 
         return deletedCount >= 1 ? true : false;
     }
 
 
-    public Clothes getClothesById(int id) {
-        String hql = "FROM Clothes where id = :id";
 
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            Query<Clothes> query = session.createQuery(hql);
-            query.setParameter("id", id);
-
-            return query.uniqueResult();
-        }
-    }
-
-    public boolean deleteClothesById(int id) {
-        String hql = "DELETE Clothes where id = :id";
-        int deletedCount = 0;
-        Transaction transaction = null;
-        Session session = null;
-        HistoryDao historyDao=new HistoryDaoImpl();
-        try {
-            session = HibernateUtil.getSessionFactory().openSession();
-            transaction = session.beginTransaction();
-            historyDao.deleteHistoryById(id);
-            Query<Clothes> query = session.createQuery(hql);
-            query.setParameter("id", id);
-            deletedCount = query.executeUpdate();
-//        Clothes clo = getClothesByType(clothesType);
-//            session.delete(clo);
-            transaction.commit();
-            ///deletedCount = 1;
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-            if (transaction != null) transaction.rollback();
-            logger.error(e.getMessage());
-        }
-        finally {
-            if (session !=null) session.close();
-        }
-
-        logger.debug(String.format("The clothes %s was deleted %d ", id, deletedCount));
-
-        return deletedCount >= 1 ? true : false;
-    }
 //        public Clothes getClothesByType(String clothesType) {
 //            if (clothesType == null) return null;
 //            String hql = "FROM Department as dept left join fetch dept.employees as em left join " +
@@ -145,6 +113,4 @@ public class ClothesDaoImpl implements ClothesDao {
 //                return query.uniqueResult();
 //            }
 //        }
-    }
-
-
+}

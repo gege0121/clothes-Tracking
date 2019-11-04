@@ -1,6 +1,7 @@
 package com.ascending.training.repository;
 
 import com.ascending.training.model.Clothes;
+import com.ascending.training.model.History;
 import com.ascending.training.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -8,20 +9,20 @@ import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
-
-public class ClothesDaoImpl implements ClothesDao {
+public class HistoryDaoImpl implements HistoryDao {
 
     private Logger logger= LoggerFactory.getLogger(this.getClass());
 
-    public boolean save(Clothes clothes) {
+    public boolean save(History history) {
         Transaction transaction = null;
         boolean isSuccess = true;
 
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            session.save(clothes);
+            session.save(history);
             transaction.commit();
         } catch (Exception e) {
             isSuccess = false;
@@ -29,18 +30,18 @@ public class ClothesDaoImpl implements ClothesDao {
             logger.error(e.getMessage());
         }
 
-        if (isSuccess) logger.debug(String.format("The clothes %s was inserted into the table.", clothes.toString()));
+        if (isSuccess) logger.debug(String.format("The history %s was inserted into the table.", history.toString()));
 
         return isSuccess;
     }
 
-    public boolean update(Clothes clothes) {
+    public boolean update(History history) {
         Transaction transaction = null;
         boolean isSuccess = true;
 
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            session.saveOrUpdate(clothes);
+            session.saveOrUpdate(history);
             transaction.commit();
         }
         catch (Exception e) {
@@ -49,30 +50,41 @@ public class ClothesDaoImpl implements ClothesDao {
             logger.error(e.getMessage());
         }
 
-        if (isSuccess) logger.debug(String.format("The clothes %s was updated.", clothes.toString()));
+        if (isSuccess) logger.debug(String.format("The history %s was updated.", history.toString()));
 
         return isSuccess;
     }
 
-    public List<Clothes> getClothessAll() {
+    public List<History> getHistorys() {
 
-       String hql = "FROM Clothes";
+        String hql = "FROM History";
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            Query<Clothes> query = session.createQuery(hql);
+            Query<History> query = session.createQuery(hql);
             return query.list().stream().distinct().collect(Collectors.toList());
 
+        }
+
+    }
+
+    public History getHistoryById(int id) {
+        String hql = "FROM History where id = :id";
+
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Query<History> query = session.createQuery(hql);
+            query.setParameter("id", id);
+            return query.uniqueResult();
         }
     }
 
 
-    public boolean deleteByType(String clothesType) {
-        String hql = "DELETE Clothes where type = :ct";
+    public boolean delete(Date historyDate) {
+        String hql = "DELETE History where date = :ct";
         int deletedCount = 0;
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            Query<Clothes> query = session.createQuery(hql);
-            query.setParameter("ct", clothesType);
+            Query<History> query = session.createQuery(hql);
+            query.setParameter("ct", historyDate);
             deletedCount = query.executeUpdate();
 //        Clothes clo = getClothesByType(clothesType);
 //            session.delete(clo);
@@ -84,54 +96,37 @@ public class ClothesDaoImpl implements ClothesDao {
             logger.error(e.getMessage());
         }
 
-        logger.debug(String.format("The clothes %s was deleted", clothesType));
+        logger.debug(String.format("The history %s was deleted", historyDate));
 
         return deletedCount >= 1 ? true : false;
     }
 
-
-    public Clothes getClothesById(int id) {
-        String hql = "FROM Clothes where id = :id";
-
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            Query<Clothes> query = session.createQuery(hql);
-            query.setParameter("id", id);
-
-            return query.uniqueResult();
-        }
-    }
-
-    public boolean deleteClothesById(int id) {
-        String hql = "DELETE Clothes where id = :id";
-        int deletedCount = 0;
-        Transaction transaction = null;
-        Session session = null;
-        HistoryDao historyDao=new HistoryDaoImpl();
-        try {
-            session = HibernateUtil.getSessionFactory().openSession();
-            transaction = session.beginTransaction();
-            historyDao.deleteHistoryById(id);
-            Query<Clothes> query = session.createQuery(hql);
-            query.setParameter("id", id);
-            deletedCount = query.executeUpdate();
-//        Clothes clo = getClothesByType(clothesType);
-//            session.delete(clo);
+    public boolean deleteHistoryById(int id){
+        String hql="DELETE History where id =:id";
+        int deletedCount=0;
+        Transaction transaction=null;
+        Session session=null;
+        try{
+            session= HibernateUtil.getSessionFactory().openSession();
+            transaction =session.beginTransaction();
+            Query<History> query=session.createQuery(hql);
+            query.setParameter("id",id);
+            deletedCount= query.executeUpdate();
             transaction.commit();
-            ///deletedCount = 1;
-        }
-        catch (Exception e) {
+    }
+        catch(Exception e){
             e.printStackTrace();
             if (transaction != null) transaction.rollback();
             logger.error(e.getMessage());
         }
         finally {
-            if (session !=null) session.close();
+            if(session!=null) session.close();
         }
-
-        logger.debug(String.format("The clothes %s was deleted %d ", id, deletedCount));
+        logger.debug(String.format("The historys %s was deleted %d ", id, deletedCount));
 
         return deletedCount >= 1 ? true : false;
     }
+
 //        public Clothes getClothesByType(String clothesType) {
 //            if (clothesType == null) return null;
 //            String hql = "FROM Department as dept left join fetch dept.employees as em left join " +
@@ -145,6 +140,4 @@ public class ClothesDaoImpl implements ClothesDao {
 //                return query.uniqueResult();
 //            }
 //        }
-    }
-
-
+}

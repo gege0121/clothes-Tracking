@@ -3,7 +3,7 @@ package com.ascending.training.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "clothes")
+@Table(name = "clothess")
 public class Clothes {
 
     public Clothes() {
@@ -33,13 +33,19 @@ public class Clothes {
     @Column(name = "tag")
     private String tag;
 
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="customer_id")
+    private Customer customer;
+
+
+
     public int getId() {
         return id;
     }
 
-//    public void setId(int id) {
-//        this.id = id;
-//    }
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getType() {
         return type;

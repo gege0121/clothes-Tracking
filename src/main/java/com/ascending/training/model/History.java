@@ -3,7 +3,7 @@ package com.ascending.training.model;
 import javax.persistence.*;
 import java.util.Date;
 @Entity
-@Table(name = "history")
+@Table(name = "historys")
 public class History {
     public History(){
     }
@@ -42,9 +42,9 @@ public class History {
         return id;
     }
 
-//    public void setId(int id) {
-//        this.id = id;
-//    }
+    public void setId(int id) {
+        this.id = id;
+    }
 
 
 }

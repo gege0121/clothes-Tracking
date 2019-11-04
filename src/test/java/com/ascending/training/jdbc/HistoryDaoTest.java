@@ -1,6 +1,4 @@
 package com.ascending.training.jdbc;
-
-import com.ascending.training.model.Clothes;
 import com.ascending.training.model.History;
 import org.junit.Assert;
 import org.junit.Before;
