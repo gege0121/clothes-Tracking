@@ -3,6 +3,7 @@ package com.ascending.training.repository;
 import com.ascending.training.model.Customer;
 import com.ascending.training.util.HibernateUtil;
 import org.hibernate.Criteria;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -118,6 +119,20 @@ public class CustomerDaoImpl  implements CustomerDao {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             Query<Customer> query = session.createQuery(hql);
             return query.list();
+        }
+    }
+
+
+    public Customer getCustomerByCredentials(String email, String password){
+        String hql = "FROM Customer as c where lower(c.email) = :email and c.password = :password";
+        logger.debug(String.format("Customer email: %s, password: %s", email, password));
+
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Query<Customer> query = session.createQuery(hql);
+            query.setParameter("email", email.toLowerCase().trim());
+            query.setParameter("password", password);
+
+            return query.uniqueResult();
         }
     }
 

@@ -1,5 +1,8 @@
 package com.ascending.training.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import org.apache.commons.codec.digest.DigestUtils;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -10,13 +13,14 @@ public class Customer {
     public Customer(){
     }
 
-    public Customer(String name, Integer age, Integer gender, Integer height, Integer weight, Integer primer){
+    public Customer(String name, Integer age, Integer gender, Integer height, Integer weight, Integer primer, String password){
         this.name=name;
         this.age=age;
         this.gender=gender;
         this.height=height;
         this.weight=weight;
         this.primer=primer;
+        this.password=password;
     }
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -41,12 +45,16 @@ public class Customer {
     @Column(name = "primer")
     private Integer primer;
 
+    @Column(name="password")
+    private String password;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     @OneToMany(mappedBy = "customer", cascade =CascadeType.REMOVE, fetch=FetchType.LAZY)
     private List<Clothes> clothes;
 
-    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
-    @JoinTable(name = "users_role",joinColumns = { @JoinColumn(name = "user_id") },
-            inverseJoinColumns = { @JoinColumn(name = "role_id")})
+//    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+//    @JoinTable(name = "users_role",joinColumns = { @JoinColumn(name = "user_id") },
+//            inverseJoinColumns = { @JoinColumn(name = "role_id")})
     private List<Role> roles;
 
     public String getName(){
@@ -98,6 +106,10 @@ public class Customer {
     public void setId(int id) {
         this.id = id;
     }
+
+    public String getPassword(){ return password; }
+    public void setPassword(String password){ this.password= DigestUtils.md5Hex(password.trim()); }
+
 
     public List<Role> getRoles() {
         return roles;

@@ -1,5 +1,7 @@
 package com.ascending.training.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 @Entity
@@ -22,6 +24,12 @@ public class History {
     private Date date;
     @Column(name = "temperature")
     private Integer temperature;
+
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "clothes_id")
+    private Clothes clothes;
+
 
 
 

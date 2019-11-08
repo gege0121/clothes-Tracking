@@ -9,4 +9,5 @@ public interface CustomerDao {
     boolean delete(String  customerName);
     List<Customer> getCustomers();
     List<Customer> getAllCustomersWithClothes();
+    Customer getCustomerByCredentials(String email, String password);
 }

@@ -1,6 +1,10 @@
 package com.ascending.training.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "clothess")
@@ -33,11 +37,15 @@ public class Clothes {
     @Column(name = "tag")
     private String tag;
 
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="customer_id")
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
     private Customer customer;
 
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @OneToMany(mappedBy = "clothes", cascade =CascadeType.REMOVE, fetch=FetchType.LAZY)
+    private List<History> history;
 
     public int getId() {
         return id;
@@ -77,6 +85,14 @@ public class Clothes {
 
     public void setTag(String tag) {
         this.tag = tag;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 }
 //    @Id

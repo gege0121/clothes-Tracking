@@ -1,6 +1,7 @@
 package com.ascending.training.repository;
 
 import com.ascending.training.model.Clothes;
+import com.ascending.training.model.Customer;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -68,6 +69,12 @@ public class ClothesDaoTest {
         Assert.assertTrue(result);
     }
 
-
+    @Test
+    public void getCkothesWithHistoryTest(){
+        List<Clothes> clothess= clothesDao.getAllClothessWithHistory();
+        int expectedNum = 1;
+        clothess.forEach(acct -> logger.debug(acct.toString()));
+        Assert.assertEquals(expectedNum, clothess.size());
+    }
 
 }

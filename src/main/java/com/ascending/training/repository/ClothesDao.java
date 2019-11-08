@@ -13,5 +13,6 @@ public interface ClothesDao {
     boolean deleteClothesById(int id);
     List<Clothes> getClothessAll();
     Clothes getClothesById(int id);
+    List<Clothes> getAllClothessWithHistory();
 
 }

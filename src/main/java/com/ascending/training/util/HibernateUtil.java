@@ -48,6 +48,7 @@ public class HibernateUtil {
             }
             catch (Exception e) {
                 logger.debug(e.getMessage());
+                e.printStackTrace();
             }
         }
         return sessionFactory;

@@ -137,6 +137,14 @@ public class ClothesDaoImpl implements ClothesDao {
         return deletedCount >= 1 ? true : false;
     }
 
+    public List<Clothes> getAllClothessWithHistory(){
+        String hql = "FROM Clothes as clo left join fetch clo.history as his";
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Query<Clothes> query = session.createQuery(hql);
+            return query.list();
+        }
+    }
+
 
 
 
