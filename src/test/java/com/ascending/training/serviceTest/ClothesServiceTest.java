@@ -4,13 +4,14 @@ import com.ascending.training.ApplicationBoot;
 import com.ascending.training.model.Clothes;
 import com.ascending.training.service.ClothesService;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.beans.AppletInitializer;
+import java.util.List;
 
 
 @RunWith(SpringRunner.class)
@@ -18,16 +19,53 @@ import java.beans.AppletInitializer;
 public class ClothesServiceTest {
     @Autowired
     private ClothesService clothesService;
-    @Test
-    public void saveTest(){
-        Clothes clo=new Clothes();
+    Clothes clo=new Clothes();
+    @Before
+    public void init(){
+
         clo.setColor("white");
         clo.setSize("m");
         clo.setTag("party");
         clo.setType("dress");
-       clo=clothesService.save(clo);
-
-        Assert.assertNotEquals(clo.getId(),0);
 
     }
+
+    @Test
+    public void saveTest(){
+        clothesService.save(clo);
+        System.out.println(">>>>> id: " + clo.getId());
+        Assert.assertNotEquals(clo.getId(),0);
+    }
+
+    @Test
+    public void updateTest(){
+        clothesService.update(clo);
+        System.out.println(">>>>> id: " + clo.getId());
+        Assert.assertNotEquals(clo.getId(),0);
+    }
+
+    @Test
+    public void getClothessAll(){
+        clothesService.getClothessAll();
+    }
+
+    @Test
+    public void deleteByType( ){
+
+       boolean result= clothesService.deleteByType("dress");
+        Assert.assertTrue(result);
+    }
+
+    @Test
+    public void getClothesById( ){
+        Clothes result=clothesService.getClothesById(5);
+        Assert.assertEquals(5,result.getId());
+    }
+
+    @Test
+    public void getAllClothessWithHistory(){
+        List<Clothes> result=clothesService.getAllClothessWithHistory();
+        Assert.assertNotEquals(result.size(),0);
+    }
+
 }
