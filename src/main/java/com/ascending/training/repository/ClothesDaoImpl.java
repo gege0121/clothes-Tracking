@@ -1,14 +1,13 @@
 package com.ascending.training.repository;
 
 import com.ascending.training.model.Clothes;
-import com.ascending.training.model.Customer;
 import com.ascending.training.util.HibernateUtil;
-import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -17,7 +16,7 @@ import java.util.stream.Collectors;
 
 public class ClothesDaoImpl implements ClothesDao {
 
-    private Logger logger= LoggerFactory.getLogger(this.getClass());
+    @Autowired private Logger logger;
 
     public boolean save(Clothes clothes) {
         Transaction transaction = null;
@@ -37,6 +36,7 @@ public class ClothesDaoImpl implements ClothesDao {
 
         return isSuccess;
     }
+
 
     public boolean update(Clothes clothes) {
         Transaction transaction = null;
@@ -67,7 +67,6 @@ public class ClothesDaoImpl implements ClothesDao {
 
         }
     }
-
 
     public boolean deleteByType(String clothesType) {
         String hql = "DELETE Clothes where type = :ct";
@@ -144,10 +143,6 @@ public class ClothesDaoImpl implements ClothesDao {
             return query.list();
         }
     }
-
-
-
-
 
     }
 

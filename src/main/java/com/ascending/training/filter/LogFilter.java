@@ -19,6 +19,7 @@ public class LogFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         logger.info("i am at logger");
+        filterChain.doFilter(servletRequest, servletResponse);
     }
 
     @Override

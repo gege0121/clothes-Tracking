@@ -3,13 +3,14 @@ package com.ascending.training.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 @Entity
 @Table(name = "historys")
 public class History {
     public History(){
     }
-    public History(Date date, Integer temperature){
+    public History(LocalDate date, Integer temperature){
         this.date=date;
         this.temperature=temperature;
     }
@@ -21,7 +22,7 @@ public class History {
     private int id;
 
     @Column(name = "date")
-    private Date date;
+    private LocalDate date;
     @Column(name = "temperature")
     private Integer temperature;
 
@@ -33,10 +34,10 @@ public class History {
 
 
 
-    public Date getDate(){
+    public LocalDate getDate(){
         return date;
     }
-    public void setDate(Date date){
+    public void setDate(LocalDate date){
         this.date=date;
     }
 

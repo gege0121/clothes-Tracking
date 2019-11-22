@@ -1,6 +1,5 @@
 package com.ascending.training.repository;
 
-import com.ascending.training.model.Clothes;
 import com.ascending.training.model.History;
 import com.ascending.training.util.HibernateUtil;
 import org.hibernate.Session;
@@ -10,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -81,7 +81,7 @@ public class HistoryDaoImpl implements HistoryDao {
     }
 
 
-    public boolean delete(Date historyDate) {
+    public boolean delete(LocalDate historyDate) {
         String hql = "DELETE History where date = :ct";
         int deletedCount = 0;
         Transaction transaction = null;

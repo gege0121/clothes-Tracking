@@ -25,30 +25,32 @@ public class CustomerDaoTest {
 
     @Autowired
     public RoleDao roleDao;
-    @Autowired
     public CustomerDao customerDao;
-    @Autowired
     public ClothesDao clothesDao;
-
-    private Logger logger= LoggerFactory.getLogger(getClass());
+    private Logger logger;
 
 
     @Before
     public void setup(){
         //create customer instance
-        Customer customer = new Customer();
-        customer.setGender(0);
-        customer.setPrimer(1);
-        customer.setName("ab");
-        customer.setWeight(124);
-        customer.setHeight(187);
-        customer.setAge(22);
-        customerDao.save(customer);
-        logger.info("customer id is: ",customer.getId());
-        Clothes c = new Clothes();
-        ///xxxx
-        c.setCustomer(customer);
-        clothesDao.save(c);
+        customerDao=new CustomerDaoImpl();
+//        Customer customer = new Customer();
+//        customer.setEmail("wanggege0121@gmail.com");
+//        customer.setPassword("123");
+//        customer.setGender(0);
+//        customer.setPrimer(1);
+//        customer.setName("ab");
+//        customer.setWeight(124);
+//        customer.setHeight(187);
+//        customer.setAge(22);
+//        customerDao.save(customer);
+//        logger.info("customer id is: ",customer.getId());
+//        Clothes c = new Clothes();
+//        ///xxxx
+//        c.setCustomer(customer);
+//        clothesDao.save(c);
+
+
 
         // add
         //find role add add roles
@@ -74,5 +76,26 @@ public class CustomerDaoTest {
        int expectedNum = 7;
        customers.forEach(acct -> logger.debug(acct.toString()));
        Assert.assertEquals(expectedNum, customers.size());
+    }
+
+    @Test
+    public void getCustomersByEmailTest(){
+        Customer customer=customerDao.getCustomersByEmail("wanggege0121@gmail.com");
+        Assert.assertNotNull(customer);
+        logger.debug(customer.toString());
+
+    }
+
+    @Test
+    public void saveTest(){
+        Customer customer=new Customer();
+        customer.setEmail("gege0121@gmail.com");
+        customer.setPassword("123456");
+        Role r=new Role();
+        r.setId(1);
+        List<Role> roles=new ArrayList<>();
+        roles.add(r);
+        customer.setRoles(roles);
+        customerDao.save(customer);
     }
 }

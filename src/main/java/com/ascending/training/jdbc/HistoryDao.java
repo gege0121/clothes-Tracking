@@ -3,6 +3,7 @@ package com.ascending.training.jdbc;
 import com.ascending.training.model.History;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +37,7 @@ public class HistoryDao {
                 while(rs.next()) {
                     //Retrieve by column name
                     int id = rs.getInt("id");
-                    Date date = rs.getDate("date");
+                    LocalDate date = rs.getDate("date").toLocalDate();
                     Integer temperature= rs.getInt("temperature");
 
                     //Fill the object

@@ -13,7 +13,7 @@ public class Customer {
     public Customer(){
     }
 
-    public Customer(String name, Integer age, Integer gender, Integer height, Integer weight, Integer primer, String password){
+    public Customer(String name, Integer age, Integer gender, Integer height, Integer weight, Integer primer, String password, String email){
         this.name=name;
         this.age=age;
         this.gender=gender;
@@ -21,6 +21,7 @@ public class Customer {
         this.weight=weight;
         this.primer=primer;
         this.password=password;
+        this.email=email;
     }
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -32,6 +33,24 @@ public class Customer {
 
     @Column(name = "age")
     private Integer age;
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", email='" + email + '\'' +
+                ", gender=" + gender +
+                ", height=" + height +
+                ", weight=" + weight +
+                ", primer=" + primer +
+                ", password='" + password + '\'' +
+                '}';
+    }
+
+    @Column(name="email")
+    private String email;
 
     @Column(name = "gender")
     private Integer gender;
@@ -52,9 +71,9 @@ public class Customer {
     @OneToMany(mappedBy = "customer", cascade =CascadeType.REMOVE, fetch=FetchType.LAZY)
     private List<Clothes> clothes;
 
-//    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
-//    @JoinTable(name = "users_role",joinColumns = { @JoinColumn(name = "user_id") },
-//            inverseJoinColumns = { @JoinColumn(name = "role_id")})
+    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @JoinTable(name = "customers_roles",joinColumns = { @JoinColumn(name = "customer_id") },
+            inverseJoinColumns = { @JoinColumn(name = "role_id")})
     private List<Role> roles;
 
     public String getName(){
@@ -62,6 +81,14 @@ public class Customer {
     }
     public void setName(String name){
         this.name=name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Integer getAge(){

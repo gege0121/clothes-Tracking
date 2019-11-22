@@ -81,9 +81,22 @@ public class Role {
         return allowedDelete;
     }
 
+    @Override
+    public String toString() {
+        return "Role{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", allowedResource='" + allowedResource + '\'' +
+                ", allowedRead=" + allowedRead +
+                ", allowedCreate=" + allowedCreate +
+                ", allowedUpdate=" + allowedUpdate +
+                ", allowedDelete=" + allowedDelete +
+                '}';
+    }
+
     public void setAllowedDelete(boolean allowedDelete) {
         this.allowedDelete = allowedDelete;
     }
-    //@ManyToMany(mappedBy = "roles")
-    //private List<Customer> customers;
+    @ManyToMany(mappedBy = "roles")
+    private List<Customer> customers;
 }

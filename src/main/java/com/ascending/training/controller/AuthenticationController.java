@@ -24,26 +24,31 @@ public class AuthenticationController {
     @Autowired CustomerService customerService;
     @Autowired Logger logger;
     private String errorMsg="wrong?!";
+    // /auth POST
     @RequestMapping(value="", method= RequestMethod.POST, produces= MediaType.APPLICATION_JSON_VALUE)
+    //todo return status code + {'token':xxxx} map
     public ResponseEntity authenticate(@RequestBody Customer customer){
 
         Map<String, String> result=new HashMap<>();
         String token="";
 
          try{
-            Customer c=customerService.getCustomerByCredentials(customer.getName(),customer.getName());
+            Customer c=customerService.getCustomerByCredentials(customer.getEmail(),customer.getPassword());
             if (customer ==null){
                 result.put("error", errorMsg);
                 return ResponseEntity.status(HttpServletResponse.SC_NON_AUTHORITATIVE_INFORMATION).body(result);
             }
-            token=JwtUtil.generateToken(customer);
+            logger.info(">>>>> customer: " + c.toString());
+
+            token=JwtUtil.generateToken(c);
         }
          catch(Exception e){
              String msg=e.getMessage();
              if(msg==null) msg="BAD REQUEST!";
              logger.error(msg);
          }
-        token= JwtUtil.generateToken(customer);
-        return ResponseEntity.status(HttpServletResponse.SC_OK).body(token);
+        //token= JwtUtil.generateToken(customer);
+        result.put("token", token);
+        return ResponseEntity.status(HttpServletResponse.SC_OK).body(result);
     }
 }

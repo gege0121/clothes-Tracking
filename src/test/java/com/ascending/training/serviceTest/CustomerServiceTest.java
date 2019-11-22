@@ -74,7 +74,9 @@ public class CustomerServiceTest {
 
     @Test
     public void getCustomerByCredentialsTest(){
-        Customer result=customerService.getCustomerByCredentials("wanggege0121@gmail.com", "123");
+        Customer result=customerService.getCustomerByCredentials("wanggege0121@gamil.com", "25f9e794323b453885f5181f1b624d0b");
+
+        System.out.println(result.getRoles());
         Assert.assertNotNull(result);
     }
 

@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -16,7 +17,7 @@ public class HistoryDaoTest {
     private HistoryDao historyDao;
     private History testData;
     private Logger logger = LoggerFactory.getLogger(this.getClass());
-    Date date = new Date(2019 - 10 - 31);
+    LocalDate date = LocalDate.parse("2019-10-31");
 
     @Before
     public void init() {
@@ -54,7 +55,7 @@ public class HistoryDaoTest {
     @Test
     public void update() {
         testData = historyDao.getHistoryById(2);
-        testData.setDate(new Date());
+        testData.setDate(date);
         testData.setTemperature(55);
         boolean result = historyDao.update(testData);
         Assert.assertTrue(result);

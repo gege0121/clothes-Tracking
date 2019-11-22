@@ -1,5 +1,10 @@
 package com.ascending.training;
 
+import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.ascending.training.util.HibernateUtil;
+import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InjectionPoint;
@@ -24,6 +29,14 @@ public class ApplicationBoot {
     public Logger logger(InjectionPoint injectionPoint) {
         return LoggerFactory.getLogger(injectionPoint.getMember().getDeclaringClass());
     }
+//    @Bean
+//    public SessionFactory getFactory() throws Exception{
+//        SessionFactory sf = HibernateUtil.getSessionFactory();
+//        if (sf=null)
+//    }
 
-
+    @Bean
+    public AmazonS3 getAmazonS3(){
+        return AmazonS3ClientBuilder.standard().withCredentials(new DefaultAWSCredentialsProviderChain()).build();
+    }
 }

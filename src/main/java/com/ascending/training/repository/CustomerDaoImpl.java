@@ -112,7 +112,7 @@ public class CustomerDaoImpl  implements CustomerDao {
 
         return deletedCount >= 1 ? true : false;
     }
-//
+
 //    public List<Customer> getCustomersWithClothes() {
 //        String hql = "FROM Customer as c left join fetch c.clothes as clo";
 //        //String hql = "FROM Department as dept left join fetch dept.employees";
@@ -124,6 +124,8 @@ public class CustomerDaoImpl  implements CustomerDao {
 //            return query.list();
 //        }
 //    }
+
+
     public List<Customer> getAllCustomersWithClothes(){
         String hql = "FROM Customer as c left join fetch c.clothes as clo";
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
@@ -134,8 +136,8 @@ public class CustomerDaoImpl  implements CustomerDao {
 
 
     public Customer getCustomerByCredentials(String email, String password){
-        String hql = "FROM Customer as c where lower(c.email) = :email and c.password = :password";
-        logger.debug(String.format("Customer email: %s, password: %s", email, password));
+        String hql = "FROM Customer as c left join fetch c.roles where lower(c.email) = :email and c.password = :password";
+        logger.info(String.format(">>>>>> Customer email: %s, password: %s", email, password));
 
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             Query<Customer> query = session.createQuery(hql);
@@ -144,6 +146,11 @@ public class CustomerDaoImpl  implements CustomerDao {
 
             return query.uniqueResult();
         }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
 
