@@ -31,7 +31,6 @@ public class HistoryController {
         return historyService.getHistoryById(id);
     }
 
-
     //  /history/5 DELETE
     @RequestMapping(value = "/{id}",method = RequestMethod.DELETE, produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity delete(@PathVariable int id){
@@ -40,5 +39,7 @@ public class HistoryController {
         result.put("result",boo);
         return ResponseEntity.status(HttpServletResponse.SC_OK).body(result);
     }
+
+
 
 }

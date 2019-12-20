@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Repository
-
 public class HistoryDaoImpl implements HistoryDao {
 
     private Logger logger= LoggerFactory.getLogger(this.getClass());

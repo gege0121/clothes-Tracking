@@ -12,8 +12,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.stream.Collectors;
-@Repository
 
+@Repository
 public class ClothesDaoImpl implements ClothesDao {
 
     @Autowired private Logger logger;

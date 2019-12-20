@@ -66,7 +66,7 @@ public class SecurityFilter implements Filter {
         }
         catch (Exception e) {
             logger.error(e.getMessage());
-            e.printStackTrace();
+            //e.printStackTrace();
         }
 
         return statusCode;
