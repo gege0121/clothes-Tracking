@@ -26,7 +26,7 @@ public class ClothesController {
         return clothesService.getClothesById(id);
     }
 
-    @RequestMapping(value="/clothes/history}",method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    @RequestMapping(value="/history}",method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public List<Clothes> getAllClothessWithHistory(){
         return clothesService.getAllClothessWithHistory();
     }

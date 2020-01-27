@@ -8,9 +8,9 @@ import java.util.List;
 
 public class ClothesDao {
     //STEP 1: Database information
-    static final String DB_URL = "jdbc:postgresql://localhost:5433/clothes";
+    static final String DB_URL = "jdbc:postgresql://localhost:5431/clothes";
     static final String USER = "admin";
-    static final String PASS = "0121";
+    static final String PASS = "password";
 
     public List<Clothes> getclothess(){
         List<Clothes> clothess = new ArrayList();

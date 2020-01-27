@@ -22,8 +22,10 @@ public class CustomerDaoImpl  implements CustomerDao {
     public boolean save(Customer customer) {
         Transaction transaction = null;
         boolean isSuccess = true;
+        Session session = null;
 
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try  {
+            session = HibernateUtil.getSessionFactory().openSession();
             transaction = session.beginTransaction();
             session.save(customer);
             transaction.commit();
@@ -31,6 +33,9 @@ public class CustomerDaoImpl  implements CustomerDao {
             isSuccess = false;
             if (transaction != null) transaction.rollback();
             logger.error(e.getMessage());
+        }
+        finally {
+            session.close();
         }
 
         if (isSuccess) logger.debug(String.format("The customer %s was inserted into the table.", customer.toString()));

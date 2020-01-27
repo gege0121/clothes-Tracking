@@ -10,9 +10,9 @@ import java.util.List;
 
 public class CustomerDao {
         //STEP 1: Database information
-        static final String DB_URL = "jdbc:postgresql://localhost:5433/clothes";
+        static final String DB_URL = "jdbc:postgresql://localhost:5431/clothes";
         static final String USER = "admin";
-        static final String PASS = "0121";
+        static final String PASS = "password";
 
         public List<Customer> getcustomers(){
             List<Customer> customers = new ArrayList();

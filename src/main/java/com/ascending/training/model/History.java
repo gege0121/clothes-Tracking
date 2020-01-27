@@ -15,8 +15,6 @@ public class History {
         this.temperature=temperature;
     }
     @Id
-    //@SequenceGenerator(name = "department_id_generator", sequenceName = "department_id_seq", allocationSize = 1)
-    //@GeneratedValue(strategy = SEQUENCE, generator = "department_id_generator")
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
@@ -30,9 +28,6 @@ public class History {
     @ManyToOne
     @JoinColumn(name = "clothes_id")
     private Clothes clothes;
-
-
-
 
     public LocalDate getDate(){
         return date;

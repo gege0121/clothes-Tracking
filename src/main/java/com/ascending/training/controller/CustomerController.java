@@ -25,6 +25,7 @@ public class CustomerController {
         return customers;
     }
 
+    //TODO discuss with Ryo /customer?clothes=true
     @RequestMapping(value = "/with-clothes",method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public List<Customer> getAllCustomersWithClothes(){
         return customerService.getAllCustomersWithClothes();
@@ -40,9 +41,9 @@ public class CustomerController {
         return customerService.getCustomersByEmail(email);
     }
 
-    @RequestMapping(value = "/{email}/{password}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public Customer getCustomerByCredentials(@PathVariable String email, @PathVariable String password){
-        return customerService.getCustomerByCredentials(email, password);
-    }
+//    @RequestMapping(value = "/{email}/{password}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+//    public Customer getCustomerByCredentials(@PathVariable String email, @PathVariable String password){
+//        return customerService.getCustomerByCredentials(email, password);
+//    }
 
 }

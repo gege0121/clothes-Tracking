@@ -1,8 +1,11 @@
 package com.ascending.training;
 
 import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
+import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.sqs.AmazonSQS;
+import com.amazonaws.services.sqs.AmazonSQSClientBuilder;
 import com.ascending.training.util.HibernateUtil;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
@@ -38,5 +41,15 @@ public class ApplicationBoot {
     @Bean
     public AmazonS3 getAmazonS3(){
         return AmazonS3ClientBuilder.standard().withCredentials(new DefaultAWSCredentialsProviderChain()).build();
+    }
+
+    @Bean
+    @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
+    public AmazonSQS amazonSQS() {
+        return AmazonSQSClientBuilder
+                .standard()
+                .withCredentials(new DefaultAWSCredentialsProviderChain())
+                .withRegion(Regions.US_EAST_1)
+                .build();
     }
 }
