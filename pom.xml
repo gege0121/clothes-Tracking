@@ -135,9 +135,9 @@
           <version>${flyway.version}</version>
           <configuration>
             <driver>org.postgresql.Driver</driver>
-            <url>jdbc:postgresql://localhost:5433/clothes</url>
+            <url>jdbc:postgresql://localhost:5431/clothes</url>
             <user>admin</user>
-            <password>0121</password>
+            <password>password</password>
             <schemas>
               <schema>public</schema>
             </schemas>

@@ -24,50 +24,47 @@ public class CustomerDaoTest {
     public List<Role> roles = new ArrayList<>();
 
     @Autowired
-    public RoleDao roleDao;
-    public CustomerDao customerDao;
-    public ClothesDao clothesDao;
+    public RoleDaoImpl roleDao;
+    @Autowired
+    public CustomerDaoImpl customerDao;
+    @Autowired
+    public ClothesDaoImpl clothesDao;
+    @Autowired
     private Logger logger;
 
+    private Customer customer;
 
     @Before
     public void setup(){
         //create customer instance
         customerDao=new CustomerDaoImpl();
-//        Customer customer = new Customer();
-//        customer.setEmail("wanggege0121@gmail.com");
-//        customer.setPassword("123");
-//        customer.setGender(0);
-//        customer.setPrimer(1);
-//        customer.setName("ab");
-//        customer.setWeight(124);
-//        customer.setHeight(187);
-//        customer.setAge(22);
-//        customerDao.save(customer);
-//        logger.info("customer id is: ",customer.getId());
-//        Clothes c = new Clothes();
-//        ///xxxx
-//        c.setCustomer(customer);
-//        clothesDao.save(c);
+        customer = new Customer();
+        customer.setEmail("wanggege0121@gmail.com");
+        customer.setPassword("123");
+        customer.setGender(0);
+        customer.setPrimer(1);
+        customer.setName("ab");
+        customer.setWeight(124);
+        customer.setHeight(187);
+        customer.setAge(22);
+        customerDao.save(customer);
+        logger.info("customer id is: ",customer.getId());
+        Clothes c = new Clothes();
+        ///xxxx
+        c.setCustomer(customer);
+        clothesDao.save(c);
 
-
-
-        // add
-        //find role add add roles
-//        Role manager = roleDao.findByName("Manager");
-//        Role user = roleDao.findByName("user");
-//        roles.add(manager);
-//        roles.add(user);
     }
 
-//    @Test
-//    public void getCustomerWithRoleTest(){
-//        Customer customer= new Customer();
-//        List<Role> roles = new ArrayList<>();
-//        customer.setRoles(roles);
-//        customerDao.save(customer);
-//        List<Customer> customers = customerDao.getCustomers();
-//    }
+    @Test
+    public void getCustomerWithRoleTest(){
+        ///Customer customer= new Customer();
+        List<Role> roles = new ArrayList<>();
+        customer.setRoles(roles);
+
+        customerDao.save(customer);
+        List<Customer> customers = customerDao.getCustomers();
+    }
 
 
     @Test

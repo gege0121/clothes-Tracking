@@ -52,6 +52,7 @@ public class CustomerServiceTest {
     @Test
     public void getCustomersTest(){
         customerService.getCustomers();
+        Assert.assertNotNull(customer);
     }
 
     @Test
@@ -62,8 +63,8 @@ public class CustomerServiceTest {
 
     @Test
     public void getCustomersByEmailTest(){
-        Customer result=customerService.getCustomersByEmail("wanggege0121@gmail.com");
-        Assert.assertEquals("wanggege0121@gmail.com", result.getEmail());
+        Customer result=customerService.getCustomersByEmail("wanggege0121@gamil.com");
+        Assert.assertEquals("wanggege0121@gamil.com", result.getEmail());
     }
 
     @Test
