@@ -24,11 +24,11 @@ public class CustomerDaoTest {
     public List<Role> roles = new ArrayList<>();
 
     @Autowired
-    public RoleDaoImpl roleDao;
+    public RoleDao roleDao;
     @Autowired
-    public CustomerDaoImpl customerDao;
+    public CustomerDao customerDao;
     @Autowired
-    public ClothesDaoImpl clothesDao;
+    public ClothesDao clothesDao;
     @Autowired
     private Logger logger;
 
@@ -37,7 +37,6 @@ public class CustomerDaoTest {
     @Before
     public void setup(){
         //create customer instance
-        customerDao=new CustomerDaoImpl();
         customer = new Customer();
         customer.setEmail("wanggege0121@gmail.com");
         customer.setPassword("123");
@@ -58,7 +57,6 @@ public class CustomerDaoTest {
 
     @Test
     public void getCustomerWithRoleTest(){
-        ///Customer customer= new Customer();
         List<Role> roles = new ArrayList<>();
         customer.setRoles(roles);
 
@@ -71,15 +69,15 @@ public class CustomerDaoTest {
     public void getCustomersWithClothesTest(){
         List<Customer> customers = customerDao.getAllCustomersWithClothes();
        int expectedNum = 7;
-       customers.forEach(acct -> logger.debug(acct.toString()));
+       //customers.forEach(acct -> logger.debug(acct.toString()));
        Assert.assertEquals(expectedNum, customers.size());
     }
 
     @Test
     public void getCustomersByEmailTest(){
-        Customer customer=customerDao.getCustomersByEmail("wanggege0121@gmail.com");
+        Customer customer=customerDao.getCustomerByEmail("wanggege0121@gmail.com");
         Assert.assertNotNull(customer);
-        logger.debug(customer.toString());
+        //logger.debug(customer.toString());
 
     }
 
@@ -95,4 +93,6 @@ public class CustomerDaoTest {
         customer.setRoles(roles);
         customerDao.save(customer);
     }
+
+
 }

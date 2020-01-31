@@ -20,36 +20,35 @@ import org.springframework.context.annotation.Scope;
 
 @SpringBootApplication(scanBasePackages = {"com.ascending.training"})
 @ServletComponentScan(basePackages = {"com.ascending.training.filter"})
-
 public class ApplicationBoot {
     public static void main(String[] args){
         SpringApplication.run(ApplicationBoot.class, args);
     }
-
-
     @Bean
     @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
     public Logger logger(InjectionPoint injectionPoint) {
         return LoggerFactory.getLogger(injectionPoint.getMember().getDeclaringClass());
     }
+
+
 //    @Bean
 //    public SessionFactory getFactory() throws Exception{
 //        SessionFactory sf = HibernateUtil.getSessionFactory();
 //        if (sf=null)
 //    }
 
-    @Bean
-    public AmazonS3 getAmazonS3(){
-        return AmazonS3ClientBuilder.standard().withCredentials(new DefaultAWSCredentialsProviderChain()).build();
-    }
-
-    @Bean
-    @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
-    public AmazonSQS amazonSQS() {
-        return AmazonSQSClientBuilder
-                .standard()
-                .withCredentials(new DefaultAWSCredentialsProviderChain())
-                .withRegion(Regions.US_EAST_1)
-                .build();
-    }
+//    @Bean
+//    public AmazonS3 getAmazonS3(){
+//        return AmazonS3ClientBuilder.standard().withCredentials(new DefaultAWSCredentialsProviderChain()).build();
+//    }
+//
+//    @Bean
+//    @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
+//    public AmazonSQS amazonSQS() {
+//        return AmazonSQSClientBuilder
+//                .standard()
+//                .withCredentials(new DefaultAWSCredentialsProviderChain())
+//                .withRegion(Regions.US_EAST_1)
+//                .build();
+//    }
 }

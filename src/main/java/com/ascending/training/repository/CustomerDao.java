@@ -10,6 +10,6 @@ public interface CustomerDao {
     List<Customer> getCustomers();
     List<Customer> getAllCustomersWithClothes();
     Customer getCustomersById(int id);
-    Customer getCustomersByEmail(String email);
+    Customer getCustomerByEmail(String email);
     Customer getCustomerByCredentials(String email, String password);
 }

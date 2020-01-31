@@ -13,7 +13,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class RoleDaoImpl implements RoleDao{
 
-@Autowired private Logger logger;
+@Autowired
+private Logger logger;
 
     public boolean save(Role role) {
         Transaction transaction = null;

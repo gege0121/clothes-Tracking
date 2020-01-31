@@ -12,12 +12,13 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.stream.Collectors;
-@Repository
 
+@Repository
 public class ClothesDaoImpl implements ClothesDao {
 
-    @Autowired private Logger logger;
-
+ @Autowired
+    private Logger logger;
+//    private Logger logger= LoggerFactory.getLogger(getClass());
     public boolean save(Clothes clothes) {
         Transaction transaction = null;
         boolean isSuccess = true;

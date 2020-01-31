@@ -35,7 +35,7 @@ public class CustomerService {
     }
 
     public Customer getCustomersByEmail(String email){
-        return customerDao.getCustomersByEmail(email);
+        return customerDao.getCustomerByEmail(email);
     }
 
     public boolean delete(String customerName){

@@ -84,14 +84,16 @@ public class CustomerDaoImpl  implements CustomerDao {
         }
     }
 
-   public Customer getCustomersByEmail(String email){
+   public Customer getCustomerByEmail(String email){
         String hql="FROM Customer as c where lower(c.email) = :email";
 
         try(Session session =HibernateUtil.getSessionFactory().openSession()){
             Query<Customer> query=session.createQuery(hql);
             query.setParameter("email",email.toLowerCase());
             return query.uniqueResult();
+            //return query.setMaxResults(1).uniqueResult();
         }
+
    }
 
     public boolean delete(String customerName) {
