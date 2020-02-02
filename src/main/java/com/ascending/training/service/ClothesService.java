@@ -12,6 +12,7 @@ import java.util.List;
 public class ClothesService {
     @Autowired
     private ClothesDao clothesDao;
+    @Autowired
     private Logger logger;
 
     public boolean save(Clothes Clo){
@@ -30,9 +31,7 @@ public class ClothesService {
         return clothesDao.deleteByType(clothesType);
     }
 
-    public Clothes getClothesById(int id){
-        return clothesDao.getClothesById(id);
-    }
+    public Clothes getClothesById(int id){ return clothesDao.getClothesById(id); }
 
     public List<Clothes> getAllClothessWithHistory(){
         return clothesDao.getAllClothessWithHistory();

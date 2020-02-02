@@ -34,7 +34,7 @@ public class ClothesDaoTest {
 
     @After
     public void tearDown(){
-//     clothesDao.deleteByType("shirt");
+    clothesDao.deleteByType("shirt");
     }
 
     @Test

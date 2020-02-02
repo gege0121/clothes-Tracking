@@ -26,7 +26,6 @@ public class HistoryServiceTest {
     public void init() {
         history.setTemperature(86);
         history.setDate(LocalDate.parse("2019-07-07"));
-
     }
 
     @Test

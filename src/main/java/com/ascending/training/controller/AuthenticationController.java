@@ -34,7 +34,7 @@ public class AuthenticationController {
 
          try{
             Customer c=customerService.getCustomerByCredentials(customer.getEmail(),customer.getPassword());
-            if (customer ==null){
+            if (c ==null){
                 result.put("error", errorMsg);
                 return ResponseEntity.status(HttpServletResponse.SC_NON_AUTHORITATIVE_INFORMATION).body(result);
             }

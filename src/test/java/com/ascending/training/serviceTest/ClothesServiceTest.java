@@ -58,8 +58,8 @@ public class ClothesServiceTest {
 
     @Test
     public void getClothesById( ){
-        Clothes result=clothesService.getClothesById(5);
-        Assert.assertEquals(5,result.getId());
+        Clothes result=clothesService.getClothesById(1);
+        Assert.assertEquals(1,result.getId());
     }
 
     @Test

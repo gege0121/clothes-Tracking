@@ -120,19 +120,6 @@ public class CustomerDaoImpl  implements CustomerDao {
         return deletedCount >= 1 ? true : false;
     }
 
-//    public List<Customer> getCustomersWithClothes() {
-//        String hql = "FROM Customer as c left join fetch c.clothes as clo";
-//        //String hql = "FROM Department as dept left join fetch dept.employees";
-//        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-//            Query<Customer> query = session.createQuery(hql);
-//            //return query.list();
-//            //return query.list().stream().distinct().collect(Collectors.toList());
-////            return query.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-//            return query.list();
-//        }
-//    }
-
-
     public List<Customer> getAllCustomersWithClothes(){
         String hql = "FROM Customer as c left join fetch c.clothes as clo";
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {

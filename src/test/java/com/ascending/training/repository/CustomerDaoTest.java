@@ -4,6 +4,7 @@ import com.ascending.training.ApplicationBoot;
 import com.ascending.training.model.Clothes;
 import com.ascending.training.model.Customer;
 import com.ascending.training.model.Role;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -48,22 +49,13 @@ public class CustomerDaoTest {
         customer.setAge(22);
         customerDao.save(customer);
         logger.info("customer id is: ",customer.getId());
-        Clothes c = new Clothes();
-        ///xxxx
-        c.setCustomer(customer);
-        clothesDao.save(c);
 
     }
 
-    @Test
-    public void getCustomerWithRoleTest(){
-        List<Role> roles = new ArrayList<>();
-        customer.setRoles(roles);
-
-        customerDao.save(customer);
-        List<Customer> customers = customerDao.getCustomers();
+    @After
+    public void tearDown(){
+    customerDao.delete("ab");
     }
-
 
     @Test
     public void getCustomersWithClothesTest(){
@@ -81,18 +73,6 @@ public class CustomerDaoTest {
 
     }
 
-    @Test
-    public void saveTest(){
-        Customer customer=new Customer();
-        customer.setEmail("gege0121@gmail.com");
-        customer.setPassword("123456");
-        Role r=new Role();
-        r.setId(1);
-        List<Role> roles=new ArrayList<>();
-        roles.add(r);
-        customer.setRoles(roles);
-        customerDao.save(customer);
-    }
 
 
 }

@@ -135,6 +135,9 @@ public class Customer {
     }
 
     public String getPassword(){ return password; }
+    //set credential password
+
+
     public void setPassword(String password){ this.password= DigestUtils.md5Hex(password.trim()); }
 
 

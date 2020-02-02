@@ -61,7 +61,7 @@ public class HistoryDaoTest {
 
     @Test
     public void update() {
-        testData = historyDao.getHistoryById(2);
+        testData = historyDao.getHistoryById(1);
         testData.setDate(date);
         testData.setTemperature(55);
         boolean result = historyDao.update(testData);

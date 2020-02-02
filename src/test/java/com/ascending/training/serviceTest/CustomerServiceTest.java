@@ -2,8 +2,11 @@ package com.ascending.training.serviceTest;
 
 import com.ascending.training.ApplicationBoot;
 import com.ascending.training.model.Customer;
+import com.ascending.training.model.Role;
 import com.ascending.training.repository.CustomerDao;
 import com.ascending.training.service.CustomerService;
+import com.ascending.training.service.RoleService;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
@@ -21,6 +25,8 @@ public class CustomerServiceTest {
 
     @Autowired
     private CustomerService customerService;
+    @Autowired
+    private RoleService roleService;
     Customer customer=new Customer();
 
     @Before
@@ -33,6 +39,11 @@ public class CustomerServiceTest {
         customer.setWeight(150);
         customer.setHeight(187);
         customer.setAge(27);
+    }
+
+    @After
+    public  void teardown(){
+        customerService.delete("Mila");
     }
 
     @Test
@@ -50,6 +61,22 @@ public class CustomerServiceTest {
     }
 
     @Test
+    public void updateRecordsTest(){
+        Customer result=customerService.getCustomersByEmail("wanggege0121@gamil.com");
+        result.setEmail("wanggege0121@gmail.com");
+        result.setPassword("123");
+        customerService.update(result);
+        Customer result1=customerService.getCustomersByEmail("huang@gamil.com");
+        result1.setEmail("huang@gmail.com");
+        result1.setPassword("789");
+        customerService.update(result1);
+        Customer result2=customerService.getCustomersByEmail("yutongchen@gamil.com");
+        result2.setEmail("yutongchen@gmail.com");
+        result2.setPassword("456");
+        customerService.update(result2);
+    }
+
+    @Test
     public void getCustomersTest(){
         customerService.getCustomers();
         Assert.assertNotNull(customer);
@@ -63,8 +90,8 @@ public class CustomerServiceTest {
 
     @Test
     public void getCustomersByEmailTest(){
-        Customer result=customerService.getCustomersByEmail("wanggege0121@gamil.com");
-        Assert.assertEquals("wanggege0121@gamil.com", result.getEmail());
+        Customer result=customerService.getCustomersByEmail("wanggege0121@gmail.com");
+        Assert.assertEquals("wanggege0121@gmail.com", result.getEmail());
     }
 
     @Test
@@ -75,11 +102,26 @@ public class CustomerServiceTest {
 
     @Test
     public void getCustomerByCredentialsTest(){
-        Customer result=customerService.getCustomerByCredentials("wanggege0121@gamil.com", "25f9e794323b453885f5181f1b624d0b");
+        Customer result=customerService.getCustomerByCredentials("wanggege0121@gmail.com", "202cb962ac59075b964b07152d234b70");
 
         System.out.println(result.getRoles());
         Assert.assertNotNull(result);
     }
 
+    @Test
+    public void saveUserWithRoles(){
+            List<Role> roles = new ArrayList<>();
+            roles.add(roleService.getRoleByName("Manager"));
+            roles.add(roleService.getRoleByName("User"));
+            customer=customerService.getCustomersByEmail("wanggege0121@gmail.com");
+            customer.setRoles(roles);
+            customerService.save(customer);
 
-}
+//        User user1 = userDAO.getUserByAccount(user.getAccount());
+//        Assert.assertEquals(user1.getRoles().size(),roles.size());
+//        userDAO.deleteUserById(user1.getId());
+            Assert.assertEquals(customer.getRoles().size(),roles.size());
+            //userDAO.deleteUserById(user.getId());
+        }
+    }
+

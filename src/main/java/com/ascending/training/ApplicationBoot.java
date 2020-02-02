@@ -30,12 +30,13 @@ public class ApplicationBoot {
         return LoggerFactory.getLogger(injectionPoint.getMember().getDeclaringClass());
     }
 
+    @Bean
+    public SessionFactory getFactory() throws Exception{
+        SessionFactory sf = HibernateUtil.getSessionFactory();
+        if(sf==null) throw new Exception("building session factory exception");
+        return sf;
+    }
 
-//    @Bean
-//    public SessionFactory getFactory() throws Exception{
-//        SessionFactory sf = HibernateUtil.getSessionFactory();
-//        if (sf=null)
-//    }
 
 //    @Bean
 //    public AmazonS3 getAmazonS3(){
