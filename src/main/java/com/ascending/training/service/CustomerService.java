@@ -12,23 +12,18 @@ import java.util.List;
 public class CustomerService {
     @Autowired
     private CustomerDao customerDao;
+    @Autowired
     private Logger logger;
 
-    public Customer getCustomerByCredentials(String email, String password){
-        return customerDao.getCustomerByCredentials(email, password);
-    }
+    public Customer getCustomerByCredentials(String email, String password){ return customerDao.getCustomerByCredentials(email, password); }
 
     public boolean save(Customer customer){
         return customerDao.save(customer);
     }
 
-    public boolean update(Customer customer){
-        return customerDao.update(customer);
-    }
+    public boolean update(Customer customer){ return customerDao.update(customer); }
 
-    public List<Customer> getCustomers(){
-        return customerDao.getCustomers();
-    }
+    public List<Customer> getCustomers(){ return customerDao.getCustomers(); }
 
     public Customer getCustomersById(int id){
         return customerDao.getCustomersById(id);
@@ -42,9 +37,7 @@ public class CustomerService {
         return customerDao.delete(customerName);
     }
 
-    public List<Customer> getAllCustomersWithClothes(){
-        return customerDao.getAllCustomersWithClothes();
-    }
+    public List<Customer> getAllCustomersWithClothes(){ return customerDao.getAllCustomersWithClothes(); }
 
 
 

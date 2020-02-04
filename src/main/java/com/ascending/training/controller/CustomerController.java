@@ -5,10 +5,7 @@ import com.ascending.training.service.CustomerService;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,22 +25,39 @@ public class CustomerController {
     //TODO discuss with Ryo /customer?clothes=true
     @RequestMapping(value = "/with-clothes",method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public List<Customer> getAllCustomersWithClothes(){
-        return customerService.getAllCustomersWithClothes();
+        List<Customer> customers = customerService.getAllCustomersWithClothes();
+        return customers;
     }
-
-    @RequestMapping(value = "/{id}",method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public Customer getCustomersById(@PathVariable int id){
-        return customerService.getCustomersById(id);
-    }
-
-    @RequestMapping(value = "/{email}",method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public Customer getCustomersByEmail(@PathVariable String email){
-        return customerService.getCustomersByEmail(email);
-    }
-
-//    @RequestMapping(value = "/{email}/{password}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
-//    public Customer getCustomerByCredentials(@PathVariable String email, @PathVariable String password){
-//        return customerService.getCustomerByCredentials(email, password);
+//  /customer/2
+//   @RequestMapping(value = "/{id}",method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+//    public Customer getCustomersById(@PathVariable int id){
+//        return customerService.getCustomersById(id);
 //    }
+// /customer/ryo.hang@gmail.com
+    @RequestMapping(value = "/email",method = RequestMethod.GET, params ="emailName", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Customer getCustomersByEmail(@RequestParam(name = "emailName") String emailName){
+        return customerService.getCustomersByEmail(emailName);
+    }
+
+
+    @RequestMapping(value = "", method = RequestMethod.PUT, consumes = {MediaType.APPLICATION_JSON_VALUE})
+    public String updateCustomer(@RequestBody Customer customer) {
+        logger.debug("Customer: " + customer.toString());
+        String msg = "The customer was updated.";
+        boolean isSuccess = customerService.update(customer);
+        if (!isSuccess) msg = "The customer was not updated.";
+
+        return msg;
+    }
+
+    @RequestMapping(value = "/{customerName}", method = RequestMethod.DELETE, consumes = {MediaType.APPLICATION_JSON_VALUE})
+    public String deleteCustomer(@PathVariable String customerName) {
+        logger.debug("Customer name: " + customerName);
+        String msg = "The Customer was deleted.";
+        boolean isSuccess = customerService.delete(customerName);
+        if (!isSuccess) msg = "The customer was not deleted.";
+
+        return msg;
+    }
 
 }

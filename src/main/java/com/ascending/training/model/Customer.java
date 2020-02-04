@@ -67,7 +67,7 @@ public class Customer {
     @Column(name="password")
     private String password;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+//   @JsonInclude(JsonInclude.Include.NON_NULL)
     @OneToMany(mappedBy = "customer", cascade =CascadeType.REMOVE, fetch=FetchType.LAZY)
     private List<Clothes> clothes;
 
@@ -148,4 +148,8 @@ public class Customer {
     public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
+
+    public List<Clothes> getClothes(){ return clothes; }
+
+    public void setClothes(List<Clothes> clothes){this.clothes=clothes;}
 }

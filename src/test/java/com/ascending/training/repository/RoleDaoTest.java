@@ -57,6 +57,27 @@ public class RoleDaoTest {
     }
 
     @Test
+    public void setUsersRole(){
+        Customer user=userDao.getCustomerByEmail("wanggege0121@gmail.com");
+        List<Role> role = new ArrayList();
+        role.add(roleDao.getRoleByName("user"));
+        user.setRoles(role);
+        userDao.update(user);
+
+        Customer user1=userDao.getCustomerByEmail("huang@gmail.com");
+        List<Role> role1 = new ArrayList();
+        role1.add(roleDao.getRoleByName("Admin"));
+        user1.setRoles(role1);
+        userDao.update(user1);
+
+        Customer user3=userDao.getCustomerByEmail("yutongchen@gmail.com");
+        List<Role> role3 = new ArrayList();
+        role3.add(roleDao.getRoleByName("Manager"));
+        user3.setRoles(role3);
+        userDao.update(user3);
+    }
+
+    @Test
     public void encryptPassword() {
         logger.debug("Hashed Password: " + DigestUtils.md5Hex("123456789"));
     }

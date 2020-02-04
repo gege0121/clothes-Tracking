@@ -26,7 +26,6 @@ public class AuthenticationController {
     private String errorMsg="wrong?!";
     // /auth POST
     @RequestMapping(value="", method= RequestMethod.POST, produces= MediaType.APPLICATION_JSON_VALUE)
-    //todo return status code + {'token':xxxx} map
     public ResponseEntity authenticate(@RequestBody Customer customer){
 
         Map<String, String> result=new HashMap<>();
