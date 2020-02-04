@@ -1,6 +1,8 @@
 package com.ascending.training.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import javax.persistence.*;
@@ -28,46 +30,53 @@ public class Customer {
     @Column(name = "id")
     private int id;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     @Column(name = "name")
     private String name;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     @Column(name = "age")
     private Integer age;
 
-    @Override
-    public String toString() {
-        return "Customer{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", age=" + age +
-                ", email='" + email + '\'' +
-                ", gender=" + gender +
-                ", height=" + height +
-                ", weight=" + weight +
-                ", primer=" + primer +
-                ", password='" + password + '\'' +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Customer{" +
+//                "id=" + id +
+//                ", name='" + name + '\'' +
+//                ", age=" + age +
+//                ", email='" + email + '\'' +
+//                ", gender=" + gender +
+//                ", height=" + height +
+//                ", weight=" + weight +
+//                ", primer=" + primer +
+//                ", password='" + password + '\'' +
+//                '}';
+//    }
 
     @Column(name="email")
     private String email;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     @Column(name = "gender")
     private Integer gender;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     @Column(name = "height")
     private Integer height;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     @Column(name = "weight")
     private Integer weight;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     @Column(name = "primer")
     private Integer primer;
+
 
     @Column(name="password")
     private String password;
 
-//   @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     @OneToMany(mappedBy = "customer", cascade =CascadeType.REMOVE, fetch=FetchType.LAZY)
     private List<Clothes> clothes;
 
@@ -149,7 +158,29 @@ public class Customer {
         this.roles = roles;
     }
 
-    public List<Clothes> getClothes(){ return clothes; }
+    public List<Clothes> getClothes(){
+        try{
+            int size = clothes.size();//try catch the exception if the clothes are not fetched
+        }
+        catch(Exception e) {
+            return null;
+        }
+        return clothes;
+    }
 
     public void setClothes(List<Clothes> clothes){this.clothes=clothes;}
+
+//used in debug
+//    @Override
+//    public String toString() {
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        String str = null;
+//        try {
+//            str = objectMapper.writeValueAsString(this);
+//        }
+//        catch(JsonProcessingException jpe) {
+//            jpe.printStackTrace();
+//        }
+//        return str;
+//    }
 }

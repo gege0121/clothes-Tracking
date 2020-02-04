@@ -28,15 +28,17 @@ public class CustomerController {
         List<Customer> customers = customerService.getAllCustomersWithClothes();
         return customers;
     }
+
 //  /customer/2
-//   @RequestMapping(value = "/{id}",method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
-//    public Customer getCustomersById(@PathVariable int id){
-//        return customerService.getCustomersById(id);
-//    }
+   @RequestMapping(value = "/id",method = RequestMethod.GET,params = "ID", produces = {MediaType.APPLICATION_JSON_VALUE})
+    public Customer getCustomersById(@RequestParam(name = "ID")  int ID){
+        return customerService.getCustomersById(ID);
+    }
 // /customer/ryo.hang@gmail.com
     @RequestMapping(value = "/email",method = RequestMethod.GET, params ="emailName", consumes = MediaType.APPLICATION_JSON_VALUE)
     public Customer getCustomersByEmail(@RequestParam(name = "emailName") String emailName){
-        return customerService.getCustomersByEmail(emailName);
+        Customer c = customerService.getCustomersByEmail(emailName);
+        return c;
     }
 
 

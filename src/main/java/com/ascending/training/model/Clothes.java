@@ -42,7 +42,6 @@ public class Clothes {
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
-
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @OneToMany(mappedBy = "clothes", cascade =CascadeType.REMOVE, fetch=FetchType.LAZY)
     private List<History> history;
@@ -93,5 +92,20 @@ public class Clothes {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    public List<History> getHistory() {
+        try{
+            int size = history.size();//try catch the exception if the clothes are not fetched
+        }
+        catch(Exception e) {
+            return null;
+        }
+        return history;
+    }
+
+
+    public void setHistory(List<History> history) {
+        this.history = history;
     }
 }
