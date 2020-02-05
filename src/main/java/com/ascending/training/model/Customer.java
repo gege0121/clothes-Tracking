@@ -1,6 +1,7 @@
 package com.ascending.training.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -15,6 +16,10 @@ public class Customer {
     public Customer(){
     }
 
+    public interface CustomerView{};
+
+    public interface CustomerClothesView extends CustomerView{};
+
     public Customer(String name, Integer age, Integer gender, Integer height, Integer weight, Integer primer, String password, String email){
         this.name=name;
         this.age=age;
@@ -25,16 +30,18 @@ public class Customer {
         this.password=password;
         this.email=email;
     }
+
+    @JsonView(CustomerView.class)
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonView(CustomerView.class)
     @Column(name = "name")
     private String name;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonView(CustomerView.class)
     @Column(name = "age")
     private Integer age;
 
@@ -53,30 +60,32 @@ public class Customer {
 //                '}';
 //    }
 
+    @JsonView(CustomerView.class)
     @Column(name="email")
     private String email;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonView(CustomerView.class)
     @Column(name = "gender")
     private Integer gender;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonView(CustomerView.class)
     @Column(name = "height")
     private Integer height;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonView(CustomerView.class)
     @Column(name = "weight")
     private Integer weight;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonView(CustomerView.class)
     @Column(name = "primer")
     private Integer primer;
 
-
+    @JsonView(CustomerView.class)
     @Column(name="password")
     private String password;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonView(CustomerClothesView.class)
     @OneToMany(mappedBy = "customer", cascade =CascadeType.REMOVE, fetch=FetchType.LAZY)
     private List<Clothes> clothes;
 
@@ -158,15 +167,7 @@ public class Customer {
         this.roles = roles;
     }
 
-    public List<Clothes> getClothes(){
-        try{
-            int size = clothes.size();//try catch the exception if the clothes are not fetched
-        }
-        catch(Exception e) {
-            return null;
-        }
-        return clothes;
-    }
+    public List<Clothes> getClothes(){ return clothes; }
 
     public void setClothes(List<Clothes> clothes){this.clothes=clothes;}
 

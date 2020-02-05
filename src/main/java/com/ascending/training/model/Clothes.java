@@ -2,6 +2,7 @@ package com.ascending.training.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.persistence.*;
 import java.util.List;
@@ -20,23 +21,30 @@ public class Clothes {
         this.tag = tag;
 
     }
+
+    @JsonView(Customer.CustomerClothesView.class)
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 
+    @JsonView(Customer.CustomerClothesView.class)
     @Column(name = "type")
     private String type;
 
+    @JsonView(Customer.CustomerClothesView.class)
     @Column(name = "color")
     private String color;
 
+    @JsonView(Customer.CustomerClothesView.class)
     @Column(name = "size")
     private String size;
 
+    @JsonView(Customer.CustomerClothesView.class)
     @Column(name = "tag")
     private String tag;
 
+    @JsonView(Customer.CustomerClothesView.class)
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "customer_id")
@@ -94,15 +102,7 @@ public class Clothes {
         this.customer = customer;
     }
 
-    public List<History> getHistory() {
-        try{
-            int size = history.size();//try catch the exception if the clothes are not fetched
-        }
-        catch(Exception e) {
-            return null;
-        }
-        return history;
-    }
+    public List<History> getHistory() { return history; }
 
 
     public void setHistory(List<History> history) {

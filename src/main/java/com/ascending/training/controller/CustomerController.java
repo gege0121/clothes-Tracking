@@ -2,6 +2,7 @@ package com.ascending.training.controller;
 
 import com.ascending.training.model.Customer;
 import com.ascending.training.service.CustomerService;
+import com.fasterxml.jackson.annotation.JsonView;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -15,6 +16,7 @@ public class CustomerController {
     @Autowired private Logger logger;
     @Autowired private CustomerService customerService;
 
+    @JsonView(Customer.CustomerView.class)
     @RequestMapping(value = "", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public List<Customer> getCustomers(){
         List<Customer> customers = customerService.getCustomers();
@@ -23,6 +25,7 @@ public class CustomerController {
     }
 
     //TODO discuss with Ryo /customer?clothes=true
+    @JsonView(Customer.CustomerClothesView.class)
     @RequestMapping(value = "/with-clothes",method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public List<Customer> getAllCustomersWithClothes(){
         List<Customer> customers = customerService.getAllCustomersWithClothes();
@@ -30,11 +33,14 @@ public class CustomerController {
     }
 
 //  /customer/2
-   @RequestMapping(value = "/id",method = RequestMethod.GET,params = "ID", produces = {MediaType.APPLICATION_JSON_VALUE})
+    @JsonView(Customer.CustomerClothesView.class)
+    @RequestMapping(value = "/id",method = RequestMethod.GET,params = "ID", produces = {MediaType.APPLICATION_JSON_VALUE})
     public Customer getCustomersById(@RequestParam(name = "ID")  int ID){
         return customerService.getCustomersById(ID);
     }
-// /customer/ryo.hang@gmail.com
+
+
+    @JsonView(Customer.CustomerClothesView.class)
     @RequestMapping(value = "/email",method = RequestMethod.GET, params ="emailName", consumes = MediaType.APPLICATION_JSON_VALUE)
     public Customer getCustomersByEmail(@RequestParam(name = "emailName") String emailName){
         Customer c = customerService.getCustomersByEmail(emailName);
