@@ -74,7 +74,8 @@ public class CustomerDaoImpl  implements CustomerDao {
     }
 
     public Customer getCustomersById(int id) {
-        String hql = "FROM Customer where id = :id";
+
+        String hql = "FROM Customer as c left join fetch c.clothes as clo where c.id = :id";
 
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             Query<Customer> query = session.createQuery(hql);
@@ -85,7 +86,7 @@ public class CustomerDaoImpl  implements CustomerDao {
     }
 
    public Customer getCustomerByEmail(String email){
-        String hql="FROM Customer as c where lower(c.email) = :email";
+        String hql="FROM Customer as c join fetch c.clothes as clo where lower(c.email) = :email";
 
         try(Session session =HibernateUtil.getSessionFactory().openSession()){
             Query<Customer> query=session.createQuery(hql);

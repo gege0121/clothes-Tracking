@@ -118,8 +118,6 @@ public class ClothesDaoImpl implements ClothesDao {
             Query<Clothes> query = session.createQuery(hql);
             query.setParameter("id", id);
             deletedCount = query.executeUpdate();
-//        Clothes clo = getClothesByType(clothesType);
-//            session.delete(clo);
             transaction.commit();
             ///deletedCount = 1;
         }
