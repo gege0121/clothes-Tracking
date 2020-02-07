@@ -38,18 +38,18 @@ public class ApplicationBoot {
     }
 
 
-//    @Bean
-//    public AmazonS3 getAmazonS3(){
-//        return AmazonS3ClientBuilder.standard().withCredentials(new DefaultAWSCredentialsProviderChain()).build();
-//    }
-//
-//    @Bean
-//    @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
-//    public AmazonSQS amazonSQS() {
-//        return AmazonSQSClientBuilder
-//                .standard()
-//                .withCredentials(new DefaultAWSCredentialsProviderChain())
-//                .withRegion(Regions.US_EAST_1)
-//                .build();
-//    }
+    @Bean
+    public AmazonS3 getAmazonS3(){
+        return AmazonS3ClientBuilder.standard().withCredentials(new DefaultAWSCredentialsProviderChain()).build();
+    }
+
+    @Bean
+    @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
+    public AmazonSQS amazonSQS() {
+        return AmazonSQSClientBuilder
+                .standard()
+                .withCredentials(new DefaultAWSCredentialsProviderChain())
+                .withRegion(Regions.US_EAST_1)
+                .build();
+    }
 }

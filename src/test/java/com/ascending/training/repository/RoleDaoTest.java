@@ -58,6 +58,7 @@ public class RoleDaoTest {
 
     @Test
     public void setUsersRole(){
+//        Customer user = new Customer();
         Customer user=userDao.getCustomerByEmail("wanggege0121@gmail.com");
         List<Role> role = new ArrayList();
         role.add(roleDao.getRoleByName("user"));
