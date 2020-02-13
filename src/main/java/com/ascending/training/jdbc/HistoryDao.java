@@ -47,9 +47,9 @@ public class HistoryDao {
                     history.setTemperature(temperature);
                     historys.add(history);
                 }
-            }
-            catch(Exception e){
+            } catch(SQLException e){
                 e.printStackTrace();
+                //resolve exception
             }
             finally {
                 //STEP 6: finally block used to close resources

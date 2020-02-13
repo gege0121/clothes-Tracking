@@ -15,7 +15,6 @@ import java.util.stream.Collectors;
 
 @Repository
 public class ClothesDaoImpl implements ClothesDao {
-
  @Autowired
     private Logger logger;
 //    private Logger logger= LoggerFactory.getLogger(getClass());

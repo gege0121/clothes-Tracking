@@ -15,12 +15,13 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
 
 @SpringBootApplication(scanBasePackages = {"com.ascending.training"})
 @ServletComponentScan(basePackages = {"com.ascending.training.filter"})
-public class ApplicationBoot {
+public class ApplicationBoot extends SpringBootServletInitializer {
     public static void main(String[] args){
         SpringApplication.run(ApplicationBoot.class, args);
     }
@@ -33,6 +34,7 @@ public class ApplicationBoot {
     @Bean
     public SessionFactory getFactory() throws Exception{
         SessionFactory sf = HibernateUtil.getSessionFactory();
+        // not connect to db
         if(sf==null) throw new Exception("building session factory exception");
         return sf;
     }

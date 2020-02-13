@@ -30,7 +30,7 @@ public class FileController {
     private String queueName;
     @Value("${file.download.dir}")
     private String fileDownloadDir;
-    
+
     private Logger logger;
     private FileService fileService;
     private MessageService messageService;
