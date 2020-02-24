@@ -2,7 +2,9 @@ package com.ascending.training.serviceTest;
 
 import com.ascending.training.ApplicationBoot;
 import com.ascending.training.model.Clothes;
+import com.ascending.training.model.History;
 import com.ascending.training.service.ClothesService;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -22,12 +25,16 @@ public class ClothesServiceTest {
     Clothes clo=new Clothes();
     @Before
     public void init(){
-
         clo.setColor("white");
         clo.setSize("m");
         clo.setTag("party");
         clo.setType("dress");
 
+    }
+
+    @After
+    public void teardown(){
+        clothesService.deleteByType("dress");
     }
 
     @Test
@@ -47,6 +54,8 @@ public class ClothesServiceTest {
     @Test
     public void getClothessAll(){
         clothesService.getClothessAll();
+        List<Clothes> clothesList = new ArrayList<>(clothesService.getClothessAll());
+        Assert.assertNotNull(clothesList);
     }
 
     @Test

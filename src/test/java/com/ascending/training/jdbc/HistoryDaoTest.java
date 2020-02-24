@@ -18,12 +18,6 @@ public class HistoryDaoTest {
         @Test
         public void getHistorysTest() {
             List<History> historys = historyDao.gethistorys();
-            int expectedNumOfHistory = 3;
-
-            for (History history : historys) {
-                System.out.println(history);
-            }
-
-            Assert.assertEquals(expectedNumOfHistory, historys.size());
+            Assert.assertNotNull(historys);
         }
     }

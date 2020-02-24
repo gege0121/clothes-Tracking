@@ -4,10 +4,7 @@ import com.ascending.training.ApplicationBoot;
 import com.ascending.training.model.Customer;
 import com.ascending.training.model.Role;
 import org.apache.commons.codec.digest.DigestUtils;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,24 +19,37 @@ import java.util.List;
 public class RoleDaoTest {
     @Autowired
     private Logger logger;
-    @Autowired private CustomerDao userDao;
-    @Autowired private RoleDao roleDao;
+    @Autowired
+    private CustomerDao customerDao;
+    @Autowired
+    private RoleDao roleDao;
     private String email;
     private List<Role> roles = new ArrayList();
-
+    private Customer gg;
     @Before
     public void init() {
-        Customer customer=new Customer();
-        email = "wanggege0121@gmail.com";
+        gg=new Customer();
+        gg.setEmail("gege0121@gmail.com");
+        gg.setAge(88);
+        gg.setName("gg");
         roles.add(roleDao.getRoleByName("Manager"));
         roles.add(roleDao.getRoleByName("User"));
-        customer.setRoles(roles);
+        gg.setRoles(roles);
+
 
     }
 
+    @After
+    public void teardown(){
+        customerDao.delete("gg");
+    }
+
+
+
     @Test
     public void getUserByEmail() {
-        Customer user = userDao.getCustomerByEmail("wanggege0121@gmail.com");
+        customerDao.save(gg);
+        Customer user = customerDao.getCustomerByEmail("gege0121@gmail.com");
         Assert.assertNotNull(user);
         logger.debug(user.toString());
     }
@@ -47,36 +57,11 @@ public class RoleDaoTest {
     //@Ignore
     @Test
     public void createUser() {
-        Customer user = new Customer();
-        user.setRoles(roles);
-        user.setName("John");
-        user.setEmail("jfang@ascending.com");
-        user.setPassword("jfang123!@#$");
-        boolean result = userDao.save(user);
+        boolean result = customerDao.save(gg);
         Assert.assertTrue(result);
+
     }
 
-    @Test
-    public void setUsersRole(){
-//        Customer user = new Customer();
-        Customer user=userDao.getCustomerByEmail("wanggege0121@gmail.com");
-        List<Role> role = new ArrayList();
-        role.add(roleDao.getRoleByName("user"));
-        user.setRoles(role);
-        userDao.update(user);
-
-        Customer user1=userDao.getCustomerByEmail("huang@gmail.com");
-        List<Role> role1 = new ArrayList();
-        role1.add(roleDao.getRoleByName("Admin"));
-        user1.setRoles(role1);
-        userDao.update(user1);
-
-        Customer user3=userDao.getCustomerByEmail("yutongchen@gmail.com");
-        List<Role> role3 = new ArrayList();
-        role3.add(roleDao.getRoleByName("Manager"));
-        user3.setRoles(role3);
-        userDao.update(user3);
-    }
 
     @Test
     public void encryptPassword() {

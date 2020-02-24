@@ -10,9 +10,10 @@ import java.util.List;
 
 public class CustomerDao {
         //STEP 1: Database information
-        static final String DB_URL = "jdbc:postgresql://localhost:5431/clothes";
-        static final String USER = "admin";
-        static final String PASS = "password";
+        private static final String DB_URL = System.getProperty("database.url");
+        private static final String USER = System.getProperty("database.user");
+        private static final String PASS = System.getProperty("database.password");
+
 
         public List<Customer> getcustomers(){
             List<Customer> customers = new ArrayList();
@@ -30,7 +31,7 @@ public class CustomerDao {
                 System.out.println("Creating statement...");
                 stmt = conn.createStatement();
                 String sql;
-                sql = "SELECT * FROM customer";
+                sql = "SELECT * FROM customers";
                 rs = stmt.executeQuery(sql);
 
                 //STEP 4: Extract data from result set

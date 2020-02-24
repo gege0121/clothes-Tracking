@@ -8,9 +8,9 @@ import java.util.List;
 
 public class ClothesDao {
     //STEP 1: Database information
-    static final String DB_URL = "jdbc:postgresql://localhost:5431/clothes";
-    static final String USER = "admin";
-    static final String PASS = "password";
+    private static final String DB_URL = System.getProperty("database.url");
+    private static final String USER = System.getProperty("database.user");
+    private static final String PASS = System.getProperty("database.password");
 
     public List<Clothes> getclothess(){
         List<Clothes> clothess = new ArrayList();
@@ -28,7 +28,7 @@ public class ClothesDao {
         System.out.println("Creating statement...");
         stmt = conn.createStatement();
         String sql;
-        sql = "SELECT * FROM clothes";
+        sql = "SELECT * FROM clothess";
         rs = stmt.executeQuery(sql);
 
         //STEP 4: Extract data from result set

@@ -60,7 +60,7 @@ public class CustomerDaoTest {
     @Test
     public void getCustomersWithClothesTest(){
         List<Customer> customers = customerDao.getAllCustomersWithClothes();
-       int expectedNum = 7;
+       int expectedNum = 4;
        //customers.forEach(acct -> logger.debug(acct.toString()));
        Assert.assertEquals(expectedNum, customers.size());
     }

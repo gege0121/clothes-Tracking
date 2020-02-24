@@ -55,17 +55,17 @@ public class HistoryDaoTest {
 
     @Test
     public void deleteHistoryById() {
-        boolean result = historyDao.deleteHistoryById(3);
+        Integer id= testData.getId();
+        boolean result = historyDao.deleteHistoryById(id);
         Assert.assertTrue(result);
     }
 
     @Test
-    public void update() {
-        testData = historyDao.getHistoryById(1);
-        testData.setDate(date);
-        testData.setTemperature(55);
-        boolean result = historyDao.update(testData);
-        Assert.assertTrue(result);
+    public void update(){
+        historyDao.save(testData);
+       testData.setTemperature(22);
+        historyDao.update(testData);
+        Assert.assertEquals(testData.getTemperature().toString(), "22");
 
     }
 
