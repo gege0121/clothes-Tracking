@@ -26,10 +26,10 @@ import java.nio.file.Paths;
 @RequestMapping(value = {"/files"})
 public class FileController {
     /* Inject value from vm options */
-    @Value("${aws.queue.name}")
-    private String queueName;
-    @Value("${file.download.dir}")
-    private String fileDownloadDir;
+//    @Value("${aws.queue.name}")
+    private String queueName="clothe_ascending";
+//    @Value("${file.download.dir}")
+    private String fileDownloadDir="/Users/gege/Downloads";
 
     private Logger logger;
     private FileService fileService;
