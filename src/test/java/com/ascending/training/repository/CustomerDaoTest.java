@@ -39,7 +39,7 @@ public class CustomerDaoTest {
     public void setup(){
         //create customer instance
         customer = new Customer();
-        customer.setEmail("wanggege0121@gmail.com");
+        customer.setEmail("ww@gmail");
         customer.setPassword("123");
         customer.setGender(0);
         customer.setPrimer(1);
@@ -60,14 +60,14 @@ public class CustomerDaoTest {
     @Test
     public void getCustomersWithClothesTest(){
         List<Customer> customers = customerDao.getAllCustomersWithClothes();
-       int expectedNum = 4;
+       int expectedNum = 5;
        //customers.forEach(acct -> logger.debug(acct.toString()));
        Assert.assertEquals(expectedNum, customers.size());
     }
 
     @Test
     public void getCustomersByEmailTest(){
-        Customer customer=customerDao.getCustomerByEmail("wanggege0121@gmail.com");
+        Customer customer=customerDao.getCustomerByEmail("ww@gmail");
         Assert.assertNotNull(customer);
         //logger.debug(customer.toString());
 

@@ -39,7 +39,6 @@ public class ApplicationBoot extends SpringBootServletInitializer {
         return sf;
     }
 
-
     @Bean
     public AmazonS3 getAmazonS3(){
         return AmazonS3ClientBuilder.standard().withCredentials(new DefaultAWSCredentialsProviderChain()).build();

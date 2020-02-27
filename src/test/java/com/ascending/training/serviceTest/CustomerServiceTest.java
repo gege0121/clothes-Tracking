@@ -60,21 +60,7 @@ public class CustomerServiceTest {
         Assert.assertNotEquals(customer.getId(),0);
     }
 
-    @Test
-    public void updateRecordsTest(){
-        Customer result=customerService.getCustomersByEmail("wanggege0121@gamil.com");
-        result.setEmail("wanggege0121@gmail.com");
-        result.setPassword("123");
-        customerService.update(result);
-        Customer result1=customerService.getCustomersByEmail("huang@gamil.com");
-        result1.setEmail("huang@gmail.com");
-        result1.setPassword("789");
-        customerService.update(result1);
-        Customer result2=customerService.getCustomersByEmail("yutongchen@gamil.com");
-        result2.setEmail("yutongchen@gmail.com");
-        result2.setPassword("456");
-        customerService.update(result2);
-    }
+
 
     @Test
     public void getCustomersTest(){
