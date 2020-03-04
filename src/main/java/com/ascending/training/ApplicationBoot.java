@@ -41,7 +41,11 @@ public class ApplicationBoot extends SpringBootServletInitializer {
 
     @Bean
     public AmazonS3 getAmazonS3(){
-        return AmazonS3ClientBuilder.standard().withCredentials(new DefaultAWSCredentialsProviderChain()).build();
+        return AmazonS3ClientBuilder
+                .standard()
+                .withCredentials(new DefaultAWSCredentialsProviderChain())
+                .withRegion(Regions.US_EAST_1)
+                .build();
     }
 
     @Bean
