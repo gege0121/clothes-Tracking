@@ -86,13 +86,13 @@ public class CustomerServiceTest {
     Assert.assertTrue(result);
     }
 
-    @Test
-    public void getCustomerByCredentialsTest(){
-        Customer result=customerService.getCustomerByCredentials("wanggege0121@gmail.com", "202cb962ac59075b964b07152d234b70");
-
-        System.out.println(result.getRoles());
-        Assert.assertNotNull(result);
-    }
+//    @Test
+//    public void getCustomerByCredentialsTest(){
+//        Customer result=customerService.getCustomerByCredentials("wanggege0121@gmail.com", "202cb962ac59075b964b07152d234b70");
+//
+//        System.out.println(result.getRoles());
+//        Assert.assertNotNull(result);
+//    }
 
     @Test
     public void saveUserWithRoles(){
