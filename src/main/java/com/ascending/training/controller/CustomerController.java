@@ -24,7 +24,6 @@ public class CustomerController {
         return customers;
     }
 
-    //TODO discuss with Ryo /customer?clothes=true
     @JsonView(Customer.CustomerClothesView.class)
     @RequestMapping(value = "/with-clothes",method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public List<Customer> getAllCustomersWithClothes(){

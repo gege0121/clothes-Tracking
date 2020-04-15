@@ -1,4 +1,6 @@
-# clothes-Tracking
+# clothes-Tracking :womans_clothes: :shirt:
+
+
 
 ```bash
 mvn clean compile flyway:migrate -Ddatabase.url=jdbc:postgresql://${database_host}:5432/${database_name} 
