@@ -1,31 +1,38 @@
 # Customized Closet :womans_clothes: :shirt:
 ## :sunny:Idea
-**A back end project to manage your clothes in digital.**
+A back end project to manage your clothes in digital.
 
 ## :crescent_moon:Technical Skills 
-**This application is developed in Spring Framework by using Spring Boot, Hibernate, RESTful web services, Postman, Maven, PostgresSql, Docker, Amazon SQS, and Amazon S3.**
+This application is developed in Spring Framework by using Spring Boot, Hibernate, RESTful web services, Postman, Maven, PostgresSql, Docker, Amazon SQS, and Amazon S3.
 
 ## :zap: Project Approach
 
-* **Create model (package) classes;**
+* Create model (package) classes;
 
-* **Use flyway to perform database schema migration;**
+* Use flyway to perform database schema migration;
 
-* **Use JDBC to interact with PostgresSQL server including CRUD operations;**
+* Use JDBC to interact with PostgresSQL server including CRUD operations;
 
-* **Replace JDBC with Hibernate framework (Finish Persistent Layer);**
+* Replace JDBC with Hibernate framework (Finish Persistent Layer);
 
-* **Create repository and service packages, implement business logic (Finish Service Layer);**
+* Create repository and service packages, implement business logic (Finish Service Layer);
 
-* **Add controller classes, achieve the goal of handling requests and responses of clients;**
+* Add controller classes, achieve the goal of handling requests and responses of clients;
 
-* **Test Restful APIs with Postman;**
+* Test Restful APIs with Postman;
 
-* **Add authentication and authorization;**
+* Add authentication and authorization;
 
-* **Integrate third-party application AWS S3, SQS and do Mockito test;**
+* Integrate third-party application AWS S3, SQS and do Mockito test;
 
-* **Package project into a Docker image.**
+* Package project into a Docker image.
+
+## Building Procedure
+
+```bash
+docker pull postgres
+docker run --name ${PostgresContainerName} -e POSTGRES_USER=${username} -e POSTGRES_PASSWORD=${password} -e POSTGRES_DB=${databaseName} -p ${hostport}:${containerport} -d 
+```
 
 ```bash
 mvn clean compile flyway:migrate -Ddatabase.url=jdbc:postgresql://${database_host}:5432/${database_name} 
