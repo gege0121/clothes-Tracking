@@ -1,7 +1,8 @@
 # Customized Closet :womans_clothes: :shirt:
 
-###Idea:sunny:
-A back end project to manage your clothes in digital.
+##Idea:sunny:
+
+*A back end project to manage your clothes in digital.*
 
 
 ```bash
