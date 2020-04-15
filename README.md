@@ -27,7 +27,7 @@ This application is developed in Spring Framework by using Spring Boot, Hibernat
 
 * Package project into a Docker image.
 
-## Building Procedure
+## :cherry_blossom:Building Procedure
 
 ```bash
 docker pull postgres
